@@ -1,5 +1,0 @@
-{
-  ProgressBarStyle: {
-  default-horizontal: { background: bar_empty, knob: bar_filled, knobBefore: bar_filled }
-}
-}

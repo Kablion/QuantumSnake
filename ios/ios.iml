@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module relativePaths="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true" LANGUAGE_LEVEL="JDK_1_7">
+    <exclude-output/>
+    <orderEntry type="inheritedJdk"/>
+    <content url="file://$MODULE_DIR$/">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false"/>
+      <excludeFolder url="file://$MODULE_DIR$/.gradle"/>
+      <excludeFolder url="file://$MODULE_DIR$/build"/>
+    </content>
+    <orderEntry type="sourceFolder" forTests="false"/>
+    <orderEntry type="module" module-name="core"/>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-robovm/1.9.9/a250abd17f6044506b44b8b18b2aa8d0852be1f7/gdx-backend-robovm-1.9.9.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-robovm/1.9.9/98b7b176b8fea8be17349b79c87eff2555b6e512/gdx-backend-robovm-1.9.9-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.mobidevelop.robovm/robovm-rt/2.3.5/779ac1c7098c9e036fc60e5525ac3243c1a0f63c/robovm-rt-2.3.5.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.mobidevelop.robovm/robovm-rt/2.3.5/23c1b96b2dc45b636ec794fb0d19b389ad8dc23f/robovm-rt-2.3.5-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.mobidevelop.robovm/robovm-cocoatouch/2.3.5/98ce674c3e7b647e76fe45209c005f8896078755/robovm-cocoatouch-2.3.5.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.mobidevelop.robovm/robovm-cocoatouch/2.3.5/3bc1e5fcd851ec02998a4f05d0e087e74a0972dc/robovm-cocoatouch-2.3.5-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-platform/1.9.9/fa88e13e767400ddf50c9ad96d78fcebf583b697/gdx-platform-1.9.9-natives-ios.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype-platform/1.9.9/dc1091250035b61475c7b70e1ae79c1ffebea5d3/gdx-freetype-platform-1.9.9-natives-ios.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype/1.9.9/d947872087863b654d9a0e27a8cb10a29d6fd3d6/gdx-freetype-1.9.9.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype/1.9.9/839b0670ba0f218435d8dcba7fd58d70939c20e1/gdx-freetype-1.9.9-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.kotcrab.vis/vis-ui/1.3.0/639741faa66a560197ee06a9412949402c831796/vis-ui-1.3.0.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.kotcrab.vis/vis-ui/1.3.0/f6114ee000ad1f210ea36d1c793f64564300f861/vis-ui-1.3.0-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.9/bf26f2f816b3cfe37ac6e66615391c30714b7030/gdx-1.9.9.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.9/1409aca6a4293a7ca8dbd60281c3211a195dd39a/gdx-1.9.9-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.mobidevelop.robovm/robovm-objc/2.3.5/e2cdacd6cf8e965f0fa4050dbd2af50e014a808c/robovm-objc-2.3.5.jar!/"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES>
+          <root url="jar://C:/Users/nicoj/.gradle/caches/modules-2/files-2.1/com.mobidevelop.robovm/robovm-objc/2.3.5/3a87ecdca15b78327406583ec1e59916c149f4c9/robovm-objc-2.3.5-sources.jar!/"/>
+        </SOURCES>
+      </library>
+    </orderEntry>
+  </component>
+  <component name="ModuleRootManager"/>
+</module>
