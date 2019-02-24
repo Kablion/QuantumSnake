@@ -1,0 +1,15 @@
+
+entities.png
+size: 128,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+player_head
+  rotate: false
+  xy: 2, 2
+  size: 100, 75
+  split: 34, 32, 40, 0
+  pad: 34, 32, 40, 0
+  orig: 100, 75
+  offset: 0, 0
+  index: -1
