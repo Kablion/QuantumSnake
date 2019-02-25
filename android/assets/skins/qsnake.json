@@ -1,0 +1,60 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	ba_text_button_font: {
+		file: baumans.fnt
+	}
+}
+com.badlogic.gdx.graphics.Color: {
+	black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: Button
+		down: Button Down
+	}
+	left: {
+		up: Left Button
+		down: Left Button Down
+	}
+	right: {
+		up: Right Button
+		down: Right Button Down
+	}
+	pause: {
+		up: Pause Button
+		down: Pause Button Down
+	}
+	resume: {
+		up: Resume Button
+		down: Resume Button Down
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: {
+		imageUp: Left Button
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: {
+		vScroll: ScrollLine
+		vScrollKnob: ScrollKnob
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: Dialog
+		titleFont: ba_text_button_font
+	}
+}
+}
