@@ -1,13 +1,11 @@
 package de.kablion.qsnake.stages;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import de.kablion.qsnake.Application;
 import de.kablion.qsnake.entities.Particle;
 import de.kablion.qsnake.entities.Player;
-import de.kablion.qsnake.constants.DIMENSIONS;
+import de.kablion.qsnake.constants.DIM;
 
 public class WorldStage extends Stage {
 
@@ -22,7 +20,7 @@ public class WorldStage extends Stage {
     private Particle particle;
 
     public WorldStage(Application app) {
-        super(new ExtendViewport(DIMENSIONS.WORLD_WIDTH, DIMENSIONS.WORLD_HEIGHT), app.batch);
+        super(new ExtendViewport(DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT), app.batch);
         this.app = app;
 
         this.setDebugAll(true);
@@ -33,7 +31,7 @@ public class WorldStage extends Stage {
     }
 
     private void initCamera() {
-        getCamera().position.set(DIMENSIONS.WORLD_WIDTH/2f,DIMENSIONS.WORLD_HEIGHT/2f,0);
+        getCamera().position.set(DIM.WORLD_WIDTH/2f, DIM.WORLD_HEIGHT/2f,0);
     }
 
     private void initPlayer() {

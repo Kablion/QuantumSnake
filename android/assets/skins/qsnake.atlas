@@ -4,125 +4,125 @@ size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-Button
+button
   rotate: false
-  xy: 509, 699
+  xy: 1, 793
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-Button Down
+button_down
   rotate: false
-  xy: 1, 357
+  xy: 1, 651
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-Dialog
+left_button
   rotate: false
-  xy: 793, 723
-  size: 48, 116
-  split: 15, 15, 97, 5
-  orig: 48, 116
-  offset: 0, 0
-  index: -1
-Left Button
-  rotate: false
-  xy: 143, 357
+  xy: 143, 793
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-Left Button Down
+left_button_down
   rotate: false
-  xy: 1, 215
+  xy: 1, 509
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-Pause Button
+pause_button
   rotate: false
-  xy: 651, 699
+  xy: 143, 651
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-Pause Button Down
+pause_button_down
   rotate: false
-  xy: 509, 557
+  xy: 1, 367
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-Resume Button
+resume_button
   rotate: false
-  xy: 143, 215
+  xy: 143, 509
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-Resume Button Down
+resume_button_down
   rotate: false
-  xy: 1, 73
+  xy: 1, 225
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-Right Button
+right_button
   rotate: false
-  xy: 651, 557
+  xy: 143, 367
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-Right Button Down
+right_button_down
   rotate: false
-  xy: 285, 357
+  xy: 1, 83
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
-ScrollKnob
+scroll_knob
   rotate: false
-  xy: 285, 275
+  xy: 1, 1
   size: 34, 80
   orig: 34, 80
   offset: 0, 0
   index: -1
-ScrollKnob Down
+scroll_knob_down
   rotate: false
-  xy: 143, 133
+  xy: 285, 735
   size: 34, 80
   orig: 34, 80
   offset: 0, 0
   index: -1
-ScrollLine
+scroll_line
   rotate: false
-  xy: 793, 421
+  xy: 285, 433
   size: 34, 300
   orig: 34, 300
   offset: 0, 0
   index: -1
-Text Button
+slider
   rotate: false
-  xy: 509, 513
+  xy: 1, 935
+  size: 420, 82
+  orig: 420, 82
+  offset: 0, 0
+  index: -1
+text_button
+  rotate: false
+  xy: 143, 323
   size: 42, 42
   split: 18, 18, 18, 18
   orig: 42, 42
   offset: 0, 0
   index: -1
-Text Button Down
+text_button_down
   rotate: false
-  xy: 1, 29
+  xy: 423, 975
   size: 42, 42
   split: 18, 18, 18, 18
   orig: 42, 42
   offset: 0, 0
   index: -1
-Baumans-Regular
+window
   rotate: false
-  xy: 1, 499
-  size: 506, 340
-  orig: 506, 340
+  xy: 285, 817
+  size: 48, 116
+  split: 15, 15, 97, 5
+  orig: 48, 116
   offset: 0, 0
   index: -1

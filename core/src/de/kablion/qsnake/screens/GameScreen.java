@@ -2,6 +2,7 @@ package de.kablion.qsnake.screens;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import de.kablion.qsnake.Application;
@@ -30,6 +31,10 @@ public class GameScreen implements Screen {
 
         worldStage = new WorldStage(app);
         hudStage = new HUDStage(app);
+
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(hudStage);
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     private void update(float delta) {

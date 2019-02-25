@@ -1,12 +1,11 @@
 package de.kablion.qsnake;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import de.kablion.qsnake.constants.SKINS;
+import de.kablion.qsnake.constants.Skins;
 import de.kablion.qsnake.screens.GameScreen;
 import de.kablion.qsnake.screens.LoadingScreen;
 
@@ -16,7 +15,7 @@ public class Application extends Game {
 	public SpriteBatch batch;
 	public ShapeRenderer shapeRenderer;
 	public AssetManager assets;
-    public HashMap<SKINS, Skin> skins;
+    public Skins skins;
 
 	//Screens
 	public LoadingScreen loadingScreen;
@@ -28,7 +27,7 @@ public class Application extends Game {
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		assets = new AssetManager();
-		skins = new HashMap<SKINS, Skin>();
+		skins = new Skins();
 
 		loadingScreen = new LoadingScreen(this);
 		//mainMenuScreen = new MainMenuScreen(this);
@@ -49,7 +48,7 @@ public class Application extends Game {
 		batch.dispose();
 		shapeRenderer.dispose();
 		assets.dispose();
-		skins.clear();
+		skins.dispose();
 
 		loadingScreen.dispose();
 		//mainMenuScreen.dispose();

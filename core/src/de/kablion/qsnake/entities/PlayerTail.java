@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.Array;
 import de.kablion.qsnake.Application;
 
 
+//TODO When Particle is collected while pathPoints are not enough the game crashs
+
 public class PlayerTail extends Group {
     private final Application app;
     private final Player player;

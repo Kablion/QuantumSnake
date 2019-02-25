@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import de.kablion.qsnake.Application;
 import de.kablion.qsnake.collision.IntersectorExtension;
-import de.kablion.qsnake.constants.DIMENSIONS;
+import de.kablion.qsnake.constants.DIM;
 import de.kablion.qsnake.constants.PATHS;
 import de.kablion.qsnake.stages.WorldStage;
 
@@ -40,7 +40,7 @@ public class Player extends Actor {
 
         this.tail = new PlayerTail(this.app, this);
 
-        this.setPosition(DIMENSIONS.WORLD_WIDTH/2f,DIMENSIONS.WORLD_HEIGHT/2f);
+        this.setPosition(DIM.WORLD_WIDTH/2f, DIM.WORLD_HEIGHT/2f);
         this.setRotation(0);
         this.setSize(HEAD_WIDTH,HEAD_HEIGHT);
         this.setOrigin(Align.center);

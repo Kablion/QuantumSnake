@@ -1,14 +1,21 @@
 {
-com.badlogic.gdx.graphics.g2d.BitmapFont: {
-	ba_text_button_font: {
-		file: baumans.fnt
-	}
-}
-com.badlogic.gdx.graphics.Color: {
+Color: {
 	black: {
 		r: 0
 		g: 0
 		b: 0
+		a: 1
+	}
+	green: {
+		r: 0
+		g: 0.69411767
+		b: 0.015686275
+		a: 1
+	}
+	grey: {
+		r: 0.58431375
+		g: 0.58431375
+		b: 0.58431375
 		a: 1
 	}
 	white: {
@@ -18,43 +25,55 @@ com.badlogic.gdx.graphics.Color: {
 		a: 1
 	}
 }
-com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+ButtonStyle: {
 	default: {
-		up: Button
-		down: Button Down
+		up: button
+		down: button_down
 	}
 	left: {
-		up: Left Button
-		down: Left Button Down
+		up: left_button
+		down: left_button_down
 	}
 	right: {
-		up: Right Button
-		down: Right Button Down
+		up: right_button
+		down: right_button_down
 	}
 	pause: {
-		up: Pause Button
-		down: Pause Button Down
+		up: pause_button
+		down: pause_button_down
 	}
 	resume: {
-		up: Resume Button
-		down: Resume Button Down
+		up: resume_button
+		down: resume_button_down
 	}
 }
-com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+LabelStyle: {
 	default: {
-		imageUp: Left Button
+		font: default
 	}
 }
-com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+ScrollPaneStyle: {
 	default: {
-		vScroll: ScrollLine
-		vScrollKnob: ScrollKnob
+		vScroll: scroll_line
+		vScrollKnob: scroll_knob
 	}
 }
-com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+TextButtonStyle: {
 	default: {
-		background: Dialog
-		titleFont: ba_text_button_font
+		font: default
+		up: text_button
+		down: text_button_down
+	}
+}
+TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+WindowStyle: {
+	default: {
+		background: window
+		titleFont: default
 	}
 }
 }

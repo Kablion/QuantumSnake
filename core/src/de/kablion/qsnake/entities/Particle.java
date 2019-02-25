@@ -1,11 +1,10 @@
 package de.kablion.qsnake.entities;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import de.kablion.qsnake.Application;
-import de.kablion.qsnake.constants.DIMENSIONS;
+import de.kablion.qsnake.constants.DIM;
 
 public class Particle extends Actor {
 
@@ -18,8 +17,8 @@ public class Particle extends Actor {
     public Particle(Application app) {
         this.app = app;
 
-        float x = MathUtils.random(radius,DIMENSIONS.WORLD_WIDTH-radius);
-        float y = MathUtils.random(radius,DIMENSIONS.WORLD_HEIGHT-radius);
+        float x = MathUtils.random(radius, DIM.WORLD_WIDTH-radius);
+        float y = MathUtils.random(radius, DIM.WORLD_HEIGHT-radius);
         this.setPosition(x,y);
     }
 
