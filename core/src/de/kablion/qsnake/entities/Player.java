@@ -18,34 +18,28 @@ import de.kablion.qsnake.stages.WorldStage;
 public class Player extends Actor {
 
     private final Application app;
+    private final WorldStage worldStage;
 
-    private static final float DEFAULT_SPEED = 100; // Units per second
-    private static final float DEFAULT_ROTATION_SPEED = 120; // Degrees per second
-    private static final float HEAD_WIDTH = 50;
-    private static final float HEAD_HEIGHT = 40;
-    private static final float HEAD_HITBOX_RADIUS = 30;
-    private static final float HEAD_HITBOX_OFFSET_X = 0;
-    private static final float HEAD_HITBOX_OFFSET_Y = -5;
-
-    private float speed = DEFAULT_SPEED;
-    private float rotationSpeed = DEFAULT_ROTATION_SPEED;
+    private float speed = DIM.PLAYER_SPEED;
+    private float rotationSpeed = DIM.PLAYER_ROTATION_SPEED;
     private Vector2 velocity = new Vector2(0,1);
 
     private TextureRegion headTextureRegion;
 
     private PlayerTail tail;
 
-    public Player(Application app) {
+    public Player(Application app, WorldStage worldStage) {
         this.app = app;
-
-        this.tail = new PlayerTail(this.app, this);
+        this.worldStage = worldStage;
 
         this.setPosition(DIM.WORLD_WIDTH/2f, DIM.WORLD_HEIGHT/2f);
         this.setRotation(0);
-        this.setSize(HEAD_WIDTH,HEAD_HEIGHT);
+        this.setSize(DIM.PLAYER_HEAD_WIDTH,DIM.PLAYER_HEAD_HEIGHT);
         this.setOrigin(Align.center);
         this.speedChanged();
         this.headTextureRegion = app.assets.get(PATHS.ENTITY_SPRITES, TextureAtlas.class).findRegion("player_head");
+
+        this.tail = new PlayerTail(this.app, this);
     }
 
     @Override
@@ -62,8 +56,8 @@ public class Player extends Actor {
     }
 
     private void checkCollisionWithParticle(Particle particle) {
-        Circle headHitbox = new Circle(getX(),getY(),HEAD_HITBOX_RADIUS);
-        Circle particleHitbox = new Circle(particle.getX(),particle.getY(),particle.getRadius());
+        Circle headHitbox = getHitbox();
+        Circle particleHitbox = particle.getHibox();
 
         if(Intersector.overlaps(headHitbox,particleHitbox)) {
             absorbParticle(particle);
@@ -71,19 +65,11 @@ public class Player extends Actor {
     }
 
     private void checkCollisionWithTail() {
-        Circle headHitbox = new Circle(getX(),getY(),HEAD_HITBOX_RADIUS);
+        Circle headHitbox = getHitbox();
         Array<ParticleContainer> particleContainers = tail.getParticleContainers();
         for(int i = 0; i<particleContainers.size; i++) {
             ParticleContainer container = particleContainers.get(i);
-            Polygon containerHitbox = new Polygon();
-            float bottom = -container.getHeight();
-            float top = -bottom;
-            float left = -container.getWidth();
-            float right = -left;
-            float[] vertices = {left,bottom,right,bottom,right,top,left,top};
-            containerHitbox.setVertices(vertices);
-            containerHitbox.setPosition(container.getX(), container.getY());
-            containerHitbox.setRotation(container.getRotation());
+            Polygon containerHitbox = container.getHitbox();
             if(IntersectorExtension.overlaps(headHitbox,containerHitbox)) {
                 handleContainerHit(container);
             }
@@ -104,10 +90,10 @@ public class Player extends Actor {
     }
 
     public void steerLeft(float delta) {
-        rotateBy(rotationSpeed*delta);
+        if(!worldStage.isPaused()) rotateBy(rotationSpeed*delta);
     }
     public void steerRight(float delta) {
-        rotateBy(-rotationSpeed*delta);
+        if(!worldStage.isPaused()) rotateBy(-rotationSpeed*delta);
     }
 
     protected void speedChanged() {
@@ -146,10 +132,19 @@ public class Player extends Actor {
         // draw hitbox
         shapes.set(ShapeRenderer.ShapeType.Line);
         shapes.setColor(getStage().getDebugColor());
-        shapes.circle(getX(),getY(),HEAD_HITBOX_RADIUS);
+        Circle hitbox = getHitbox();
+        shapes.circle(hitbox.x,hitbox.y,hitbox.radius);
     }
 
     public PlayerTail getTail() {
         return tail;
+    }
+
+    public int countCollectedParticles() {
+        return tail.getParticleContainers().size;
+    }
+
+    public Circle getHitbox() {
+        return new Circle(getX(),getY(),DIM.PLAYER_HEAD_HITBOX_RADIUS);
     }
 }

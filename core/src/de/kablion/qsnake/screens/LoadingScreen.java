@@ -103,7 +103,7 @@ public class LoadingScreen implements Screen {
             initSkins();
 
             // If everything is loaded continue to the MainMenu
-            app.setScreen(app.gameScreen);
+            app.setScreen(app.menuScreen);
         }
     }
 

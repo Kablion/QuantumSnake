@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import de.kablion.qsnake.Application;
+import de.kablion.qsnake.constants.DIM;
 
 
 //TODO When Particle is collected while pathPoints are not enough the game crashs
@@ -16,7 +17,6 @@ public class PlayerTail extends Group {
     private final Player player;
 
     private static final float RECORDS_PER_SECOND = 30;
-    private static final float CONTAINER_DISTANCE = 30;
     private static final int SPLINE_SAMPLES = 100;
 
     private Array<Vector2> pathPoints = new Array<Vector2>();
@@ -28,6 +28,15 @@ public class PlayerTail extends Group {
     public PlayerTail(Application app, Player player) {
         this.app = app;
         this.player = player;
+
+        initPathPoints();
+    }
+
+    private void initPathPoints() {
+        // Make an initial Path behind the player for quickly collected particles
+        for(int i = 3; i>=0; i--) {
+            recordPlayerPosition(player.getX(), player.getY() - i * (DIM.PARTICLE_CONTAINER_LENGTH + DIM.PARTICLE_CONTAINER_DISTANCE));
+        }
     }
 
     public void recordPlayerPosition(float x, float y) {
@@ -41,7 +50,7 @@ public class PlayerTail extends Group {
         super.act(delta);
 
         if(sinceLastRecord >= 1/RECORDS_PER_SECOND) {
-            if(pathPoints.size>2 && spline.approxLength(SPLINE_SAMPLES)>=(particleContainers.size+2)*(ParticleContainer.CONTAINER_LENGTH+CONTAINER_DISTANCE)) {
+            if(pathPoints.size>2 && spline.approxLength(SPLINE_SAMPLES)>=(particleContainers.size+2)*(DIM.PARTICLE_CONTAINER_LENGTH+ DIM.PARTICLE_CONTAINER_DISTANCE)) {
                 // reduce lenght of tail
                 pathPoints.removeIndex(0);
             }
@@ -59,7 +68,7 @@ public class PlayerTail extends Group {
         if(particleContainers.size>0) {
             Vector2 out = new Vector2();
             float splineLength = spline.approxLength(SPLINE_SAMPLES);
-            float relativeContainerDistance = (ParticleContainer.CONTAINER_LENGTH+CONTAINER_DISTANCE) / splineLength;
+            float relativeContainerDistance = (DIM.PARTICLE_CONTAINER_LENGTH+DIM.PARTICLE_CONTAINER_DISTANCE) / splineLength;
             for (int i = 0; i < particleContainers.size; i++) {
                 int positionInQueue = particleContainers.size - i;
                 float relativePosition = 1 - positionInQueue * relativeContainerDistance;
@@ -68,7 +77,7 @@ public class PlayerTail extends Group {
                 particleContainers.get(i).setPosition(out.x, out.y);
                 // setRotation
                 spline.derivativeAt(out, relativePosition);
-                particleContainers.get(i).setRotation(out.angle());
+                particleContainers.get(i).setRotation(out.angle()+90);
             }
         }
     }
@@ -95,7 +104,7 @@ public class PlayerTail extends Group {
     }
 
     public void addParticleContainer() {
-        ParticleContainer particleContainer = new ParticleContainer();
+        ParticleContainer particleContainer = new ParticleContainer(app);
         particleContainers.add(particleContainer);
         addActor(particleContainer);
     }

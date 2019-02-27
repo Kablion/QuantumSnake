@@ -19,6 +19,8 @@ public class WorldStage extends Stage {
 
     private Particle particle;
 
+    private boolean paused;
+
     public WorldStage(Application app) {
         super(new ExtendViewport(DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT), app.batch);
         this.app = app;
@@ -26,29 +28,36 @@ public class WorldStage extends Stage {
         this.setDebugAll(true);
 
         initCamera();
-        initPlayer();
-        createParticle();
     }
 
     private void initCamera() {
-        getCamera().position.set(DIM.WORLD_WIDTH/2f, DIM.WORLD_HEIGHT/2f,0);
+        getCamera().position.set(DIM.WORLD_WIDTH / 2f, DIM.WORLD_HEIGHT / 2f, 0);
     }
 
     private void initPlayer() {
-        player = new Player(app);
+        player = new Player(app, this);
         addActor(player);
         addActor(player.getTail());
     }
 
+    public void reset() {
+        clear();
+        paused = false;
+        initPlayer();
+        createParticle();
+    }
+
     public void createParticle() {
-        if(particle != null) particle.remove();
+        if (particle != null) particle.remove();
         particle = new Particle(app);
         addActor(particle);
     }
 
     @Override
     public void act(float delta) {
-        super.act(delta);
+        if (!paused) {
+            super.act(delta);
+        }
     }
 
     @Override
@@ -56,8 +65,20 @@ public class WorldStage extends Stage {
         super.draw();
     }
 
+    public void setPaused(boolean pause) {
+        paused = pause;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void gameOver() {
+        setPaused(true);
+    }
+
     public void resize(int width, int height) {
-        getViewport().update(width, height, false);
+        getViewport().update(width, height, true);
     }
 
     @Override
@@ -68,6 +89,7 @@ public class WorldStage extends Stage {
     public Player getPlayer() {
         return player;
     }
+
     public Particle getParticle() {
         return particle;
     }

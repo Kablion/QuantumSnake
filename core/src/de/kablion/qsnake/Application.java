@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.kablion.qsnake.constants.Skins;
 import de.kablion.qsnake.screens.GameScreen;
 import de.kablion.qsnake.screens.LoadingScreen;
+import de.kablion.qsnake.screens.MenuScreen;
 
 import java.util.HashMap;
 
@@ -19,7 +20,7 @@ public class Application extends Game {
 
 	//Screens
 	public LoadingScreen loadingScreen;
-	//public MainMenuScreen mainMenuScreen;
+	public MenuScreen menuScreen;
 	public GameScreen gameScreen;
 	
 	@Override
@@ -30,7 +31,7 @@ public class Application extends Game {
 		skins = new Skins();
 
 		loadingScreen = new LoadingScreen(this);
-		//mainMenuScreen = new MainMenuScreen(this);
+		menuScreen = new MenuScreen(this);
 		gameScreen = new GameScreen(this);
 
         // the Game Starts with the LoadingScreen
@@ -51,7 +52,7 @@ public class Application extends Game {
 		skins.dispose();
 
 		loadingScreen.dispose();
-		//mainMenuScreen.dispose();
+		menuScreen.dispose();
         gameScreen.dispose();
 	}
 }

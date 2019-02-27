@@ -23,14 +23,20 @@ public class GameScreen implements Screen {
 
     public GameScreen(final Application app) {
         this.app = app;
+
+        worldStage = new WorldStage(app);
+        hudStage = new HUDStage(app, worldStage);
+    }
+
+    public void reset() {
+        worldStage.reset();
+        hudStage.reset();
     }
 
     @Override
     public void show() {
         Gdx.app.log("Screen:","GAME");
-
-        worldStage = new WorldStage(app);
-        hudStage = new HUDStage(app);
+        reset();
 
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(hudStage);
@@ -64,12 +70,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-
+        hudStage.setPaused(true);
+        worldStage.setPaused(true);
     }
 
     @Override
     public void resume() {
-
+        hudStage.setPaused(false);
+        worldStage.setPaused(false);
     }
 
     @Override
@@ -85,5 +93,7 @@ public class GameScreen implements Screen {
 
     public void gameOver() {
         // TODO
+        worldStage.gameOver();
+        hudStage.gameOver();
     }
 }
