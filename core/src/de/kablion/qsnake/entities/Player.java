@@ -53,6 +53,7 @@ public class Player extends Actor {
     private void checkCollisions(float delta) {
         checkCollisionWithParticle(app.gameScreen.worldStage.getParticle());
         checkCollisionWithTail();
+        checkCollisionWithBorder();
     }
 
     private void checkCollisionWithParticle(Particle particle) {
@@ -73,6 +74,13 @@ public class Player extends Actor {
             if(IntersectorExtension.overlaps(headHitbox,containerHitbox)) {
                 handleContainerHit(container);
             }
+        }
+    }
+
+    private void checkCollisionWithBorder() {
+        if(Intersector.overlaps(this.getHitbox(), worldStage.getBorder()) && !worldStage.getBorder().contains(this.getHitbox())) {
+            // TODO: Either die or come out of the other side of the screen
+            app.gameScreen.gameOver();
         }
     }
 
@@ -145,6 +153,11 @@ public class Player extends Actor {
     }
 
     public Circle getHitbox() {
-        return new Circle(getX(),getY(),DIM.PLAYER_HEAD_HITBOX_RADIUS);
+        Vector2 hitbox_offset = new Vector2(velocity);
+        hitbox_offset.setLength(1);
+        hitbox_offset.scl(DIM.PLAYER_HEAD_HITBOX_OFFSET);
+        return new Circle(getX() + hitbox_offset.x,
+                getY() + hitbox_offset.y,
+                DIM.PLAYER_HEAD_HITBOX_RADIUS);
     }
 }

@@ -16,8 +16,7 @@ public class DIM {
     public static final float PLAYER_HEAD_WIDTH = 42;
     public static final float PLAYER_HEAD_HEIGHT = 36;
     public static final float PLAYER_HEAD_HITBOX_RADIUS = 25;
-    public static final float PLAYER_HEAD_HITBOX_OFFSET_X = 0;
-    public static final float PLAYER_HEAD_HITBOX_OFFSET_Y = -5;
+    public static final float PLAYER_HEAD_HITBOX_OFFSET = -5;
 
     // Player Tail
     public static final float PARTICLE_CONTAINER_DISTANCE = 20;

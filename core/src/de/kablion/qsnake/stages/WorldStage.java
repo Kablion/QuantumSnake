@@ -1,5 +1,6 @@
 package de.kablion.qsnake.stages;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import de.kablion.qsnake.Application;
@@ -14,6 +15,8 @@ public class WorldStage extends Stage {
      */
 
     private final Application app;
+
+    private Rectangle cameraBorder = new Rectangle();
 
     private Player player;
 
@@ -32,6 +35,7 @@ public class WorldStage extends Stage {
 
     private void initCamera() {
         getCamera().position.set(DIM.WORLD_WIDTH / 2f, DIM.WORLD_HEIGHT / 2f, 0);
+        cameraBorder = new Rectangle(0,0, DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT);
     }
 
     private void initPlayer() {
@@ -88,6 +92,10 @@ public class WorldStage extends Stage {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Rectangle getBorder() {
+        return cameraBorder;
     }
 
     public Particle getParticle() {
