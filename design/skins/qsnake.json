@@ -18,11 +18,63 @@ Color: {
 		b: 0.58431375
 		a: 1
 	}
+	Alpha_128: {
+		r: 1
+		g: 1
+		b: 1
+		a: 0.5019608
+	}
 	white: {
 		r: 1
 		g: 1
 		b: 1
 		a: 1
+	}
+}
+TintedDrawable: {
+	button_alpha: {
+		name: button
+		color: Alpha_128
+	}
+	button_down_alpha: {
+		name: button_down
+		color: Alpha_128
+	}
+	left_button_alpha: {
+		name: left_button
+		color: Alpha_128
+	}
+	left_button_down_alpha: {
+		name: left_button_down
+		color: Alpha_128
+	}
+	pause_button_alpha: {
+		name: pause_button
+		color: Alpha_128
+	}
+	pause_button_down_alpha: {
+		name: pause_button_down
+		color: Alpha_128
+	}
+	resume_button_alpha: {
+		name: resume_button
+		color: Alpha_128
+	}
+	resume_button_down_alpha: {
+		name: resume_button_down
+		color: Alpha_128
+	}
+	right_button_alpha: {
+		name: right_button
+		color: Alpha_128
+	}
+	right_button_down_alpha: {
+		name: right_button_down
+		color: Alpha_128
+	}
+	window_alpha: {
+		name: window
+		color: Alpha_128
 	}
 }
 ButtonStyle: {
@@ -45,6 +97,26 @@ ButtonStyle: {
 	resume: {
 		up: resume_button
 		down: resume_button_down
+	}
+	default_alpha: {
+		up: button_alpha
+		down: button_down_alpha
+	}
+	left_alpha: {
+		up: left_button_alpha
+		down: left_button_down_alpha
+	}
+	right_alpha: {
+		up: right_button_alpha
+		down: right_button_down_alpha
+	}
+	pause_alpha: {
+		up: pause_button_alpha
+		down: pause_button_down_alpha
+	}
+	resume_alpha: {
+		up: resume_button_alpha
+		down: resume_button_down_alpha
 	}
 }
 LabelStyle: {

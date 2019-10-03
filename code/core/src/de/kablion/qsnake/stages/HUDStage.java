@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import de.kablion.qsnake.Application;
 import de.kablion.qsnake.constants.DIM;
 import de.kablion.qsnake.constants.STRINGS;
+import de.kablion.qsnake.constants.Skins;
 
 public class HUDStage extends Stage {
 
@@ -93,11 +94,14 @@ public class HUDStage extends Stage {
     }
 
     private void initButtons() {
+        String alpha = "";
+        if(Skins.alpha_buttons) alpha = "_alpha";
+
         pauseButtonTable = new Table();
         rootTable.add(pauseButtonTable).right().top().pad(DIM.PAD_PAUSE_BUTTON).expand().align(Align.topRight);
         rootTable.row();
 
-        pauseButton = new Button(app.skins.qsnake,"pause");
+        pauseButton = new Button(app.skins.qsnake,"pause"+alpha);
         pauseButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -106,7 +110,7 @@ public class HUDStage extends Stage {
         });
         pauseButtonTable.add(pauseButton);
 
-        resumeButton = new Button(app.skins.qsnake, "resume");
+        resumeButton = new Button(app.skins.qsnake, "resume"+alpha);
         resumeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -114,10 +118,10 @@ public class HUDStage extends Stage {
             }
         });
 
-        steerLeftButton = new Button(app.skins.qsnake,"left");
+        steerLeftButton = new Button(app.skins.qsnake,"left"+alpha);
         rootTable.add(steerLeftButton).left().bottom().pad(DIM.PAD_STEER_LEFT_BUTTON).expand();
 
-        steerRightButton = new Button(app.skins.qsnake,"right");
+        steerRightButton = new Button(app.skins.qsnake,"right"+alpha);
         rootTable.add(steerRightButton).right().bottom().pad(DIM.PAD_STEER_RIGHT_BUTTON).expand();
     }
 
