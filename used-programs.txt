@@ -1,0 +1,4 @@
+figma https://www.figma.com/
+skin-composer https://ray3k.wordpress.com/software/skin-composer-for-libgdx/
+IntelliJ https://www.jetbrains.com/idea/
+gdx-texturepacker https://github.com/libgdx/libgdx/wiki/Texture-packer
