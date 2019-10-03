@@ -2,6 +2,7 @@
 -game over menu
 -stats menu
 -pause, resume the app
--alpha buttons
+-alpha buttons prettier
+-pretty effects
 
 -quantum
