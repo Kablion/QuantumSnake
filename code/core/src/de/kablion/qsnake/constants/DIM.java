@@ -35,6 +35,7 @@ public class DIM {
     public static final float FONT_MENU_TITLE = 2f;
     public static final float FONT_MENU_LABEL = 1.2f;
     public static final float FONT_STATS_LABEL = 0.8f;
+    public static final float FONT_GAMEOVER_STATS = 0.75f;
 
     // HUD Paddings
     public static final float PAD_INGAME_STATS = 20;
@@ -49,10 +50,10 @@ public class DIM {
     public static final float PAUSE_WINDOW_RESUME_WIDTH = 440;
     public static final float PAUSE_WINDOW_MAIN_MENU_WIDTH = 520;
 
-    // Pause Window
+    // Game Over Window
     public static final float GAMEOVER_WINDOW_WIDTH = 700;
     public static final float GAMEOVER_WINDOW_HEIGHT = 540;
-    public static final float GAMEOVER_WINDOW_BUTTON_HEIGHT = 120;
+    public static final float GAMEOVER_WINDOW_BUTTON_HEIGHT = 100;
     public static final float GAMEOVER_WINDOW_AGAIN_WIDTH = 440;
     public static final float GAMEOVER_WINDOW_MAIN_MENU_WIDTH = 520;
 

@@ -12,6 +12,9 @@ public class STRINGS {
     public static final String PAUSE_WINDOW_MAIN_MENU = "Back to Main Menu";
 
     public static final String GAMEOVER_WINDOW_TITLE = "Game Over!";
+    public static final String GAMEOVER_WINDOW_COLLECTED = "Particles Collected: ";
+    public static final String GAMEOVER_WINDOW_SCORE = "Final Score: ";
+    public static final String GAMEOVER_WINDOW_TIME = "Time Played: ";
     public static final String GAMEOVER_WINDOW_AGAIN = "Play Again";
     public static final String GAMEOVER_WINDOW_MAIN_MENU = "Back to Main Menu";
 

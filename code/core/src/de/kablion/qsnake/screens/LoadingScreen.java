@@ -89,7 +89,7 @@ public class LoadingScreen implements Screen {
         progressBar = new ProgressBar(0, 1, 0.01f, false, app.skins.loading, "default-horizontal");
         progressBar.setSize(290, progressBar.getPrefHeight());
         progressBar.setAnimateInterpolation(Interpolation.pow5Out);
-        progressBar.setAnimateDuration(2);
+        progressBar.setAnimateDuration(1);
 
         rootTable.add(progressBar).expand().center().fillX();
     }

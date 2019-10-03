@@ -14,6 +14,7 @@ import de.kablion.qsnake.Application;
 import de.kablion.qsnake.constants.DIM;
 import de.kablion.qsnake.constants.STRINGS;
 import de.kablion.qsnake.constants.Skins;
+import de.kablion.qsnake.utils.UtilCalc;
 
 public class HUDStage extends Stage {
 
@@ -29,9 +30,15 @@ public class HUDStage extends Stage {
     private Table statsTable;
     private Table pauseButtonTable;
 
+    // Ingame Labels
     private Label collectedLabel;
     private Label scoreLabel;
     private Label fpsLabel;
+
+    // Game Over Labels
+    private Label gameOverCollectedLabel;
+    private Label gameOverScoreLabel;
+    private Label gameOverTimeLabel;
 
     private Button steerLeftButton;
     private Button steerRightButton;
@@ -173,6 +180,20 @@ public class HUDStage extends Stage {
 
         gameOverTable.add(gameOverWindow).align(Align.center).width(DIM.GAMEOVER_WINDOW_WIDTH).height(DIM.GAMEOVER_WINDOW_HEIGHT);
 
+        gameOverCollectedLabel = new Label("", app.skins.qsnake);
+        gameOverCollectedLabel.setFontScale(DIM.FONT_GAMEOVER_STATS);
+        gameOverWindow.add(gameOverCollectedLabel).align(Align.center).expand();
+        gameOverWindow.row();
+        gameOverScoreLabel = new Label("", app.skins.qsnake);
+        gameOverScoreLabel.setFontScale(DIM.FONT_GAMEOVER_STATS);
+        gameOverWindow.add(gameOverScoreLabel).align(Align.center).expand();
+        gameOverWindow.row();
+        gameOverTimeLabel = new Label("", app.skins.qsnake);
+        gameOverTimeLabel.setFontScale(DIM.FONT_GAMEOVER_STATS);
+        gameOverWindow.add(gameOverTimeLabel).align(Align.center).expand();
+        gameOverWindow.row();
+
+
         TextButton againButton = new TextButton(STRINGS.GAMEOVER_WINDOW_AGAIN, app.skins.qsnake);
         againButton.addListener(new ClickListener() {
             @Override
@@ -250,6 +271,13 @@ public class HUDStage extends Stage {
     }
 
     public void gameOver() {
+        int collectedParticles = worldStage.getPlayer().countCollectedParticles();
+        String timePlayed = UtilCalc.secondsToString(worldStage.getSecondsPlayed(), "dhMs", false);
+
+        gameOverCollectedLabel.setText(STRINGS.GAMEOVER_WINDOW_COLLECTED + collectedParticles);
+        gameOverScoreLabel.setText(STRINGS.GAMEOVER_WINDOW_SCORE + collectedParticles);
+        gameOverTimeLabel.setText(STRINGS.GAMEOVER_WINDOW_TIME + timePlayed);
+
         gameOverWindow.setVisible(true);
         steerLeftButton.setVisible(false);
         steerRightButton.setVisible(false);

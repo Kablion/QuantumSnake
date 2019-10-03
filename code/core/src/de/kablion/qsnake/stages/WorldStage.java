@@ -22,6 +22,8 @@ public class WorldStage extends Stage {
 
     private Particle particle;
 
+    private float secondsPlayed = 0;
+
     private boolean paused;
 
     public WorldStage(Application app) {
@@ -47,6 +49,7 @@ public class WorldStage extends Stage {
     public void reset() {
         clear();
         paused = false;
+        secondsPlayed = 0;
         initPlayer();
         createParticle();
     }
@@ -61,6 +64,7 @@ public class WorldStage extends Stage {
     public void act(float delta) {
         if (!paused) {
             super.act(delta);
+            secondsPlayed += delta;
         }
     }
 
@@ -100,5 +104,9 @@ public class WorldStage extends Stage {
 
     public Particle getParticle() {
         return particle;
+    }
+
+    public float getSecondsPlayed() {
+        return secondsPlayed;
     }
 }
