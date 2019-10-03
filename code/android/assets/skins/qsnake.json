@@ -1,0 +1,79 @@
+{
+Color: {
+	black: {
+		r: 0
+		g: 0
+		b: 0
+		a: 1
+	}
+	green: {
+		r: 0
+		g: 0.69411767
+		b: 0.015686275
+		a: 1
+	}
+	grey: {
+		r: 0.58431375
+		g: 0.58431375
+		b: 0.58431375
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
+		a: 1
+	}
+}
+ButtonStyle: {
+	default: {
+		up: button
+		down: button_down
+	}
+	left: {
+		up: left_button
+		down: left_button_down
+	}
+	right: {
+		up: right_button
+		down: right_button_down
+	}
+	pause: {
+		up: pause_button
+		down: pause_button_down
+	}
+	resume: {
+		up: resume_button
+		down: resume_button_down
+	}
+}
+LabelStyle: {
+	default: {
+		font: default
+	}
+}
+ScrollPaneStyle: {
+	default: {
+		vScroll: scroll_line
+		vScrollKnob: scroll_knob
+	}
+}
+TextButtonStyle: {
+	default: {
+		font: default
+		up: text_button
+		down: text_button_down
+	}
+}
+TextTooltipStyle: {
+	default: {
+		label: default
+	}
+}
+WindowStyle: {
+	default: {
+		background: window
+		titleFont: default
+	}
+}
+}

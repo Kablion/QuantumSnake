@@ -1,0 +1,128 @@
+
+qsnake.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+button
+  rotate: false
+  xy: 1, 793
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+button_down
+  rotate: false
+  xy: 1, 651
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+left_button
+  rotate: false
+  xy: 143, 793
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+left_button_down
+  rotate: false
+  xy: 1, 509
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+pause_button
+  rotate: false
+  xy: 143, 651
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+pause_button_down
+  rotate: false
+  xy: 1, 367
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+resume_button
+  rotate: false
+  xy: 143, 509
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+resume_button_down
+  rotate: false
+  xy: 1, 225
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+right_button
+  rotate: false
+  xy: 143, 367
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+right_button_down
+  rotate: false
+  xy: 1, 83
+  size: 140, 140
+  orig: 140, 140
+  offset: 0, 0
+  index: -1
+scroll_knob
+  rotate: false
+  xy: 1, 1
+  size: 34, 80
+  orig: 34, 80
+  offset: 0, 0
+  index: -1
+scroll_knob_down
+  rotate: false
+  xy: 285, 735
+  size: 34, 80
+  orig: 34, 80
+  offset: 0, 0
+  index: -1
+scroll_line
+  rotate: false
+  xy: 285, 433
+  size: 34, 300
+  orig: 34, 300
+  offset: 0, 0
+  index: -1
+slider
+  rotate: false
+  xy: 1, 935
+  size: 420, 82
+  orig: 420, 82
+  offset: 0, 0
+  index: -1
+text_button
+  rotate: false
+  xy: 143, 323
+  size: 42, 42
+  split: 18, 18, 18, 18
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+text_button_down
+  rotate: false
+  xy: 423, 975
+  size: 42, 42
+  split: 18, 18, 18, 18
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+window
+  rotate: false
+  xy: 285, 817
+  size: 48, 116
+  split: 15, 15, 97, 5
+  orig: 48, 116
+  offset: 0, 0
+  index: -1
