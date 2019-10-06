@@ -60,7 +60,7 @@ public class HUDStage extends Stage {
         this.app = app;
         this.worldStage = worldStage;
 
-        setDebugAll(true);
+        setDebugAll(false);
     }
 
     public void reset() {

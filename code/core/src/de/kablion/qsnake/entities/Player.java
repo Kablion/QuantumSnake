@@ -15,6 +15,9 @@ import de.kablion.qsnake.constants.DIM;
 import de.kablion.qsnake.constants.PATHS;
 import de.kablion.qsnake.stages.WorldStage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player extends Actor {
 
     private final Application app;
@@ -47,13 +50,36 @@ public class Player extends Actor {
         super.act(delta);
         tail.act(delta);
         move(delta);
+        handleScreenWarping();
         checkCollisions(delta);
+    }
+
+    private void handleScreenWarping() {
+        /*
+         * Screen Wrapping Concept:
+         * Assume 9 playing screens side by side with the actual playing screens in the middle.
+         * Once the player leaves the middle screens teleport it back to the middle.
+         * While drawing check if the player overlaps with on of the surrounding screens and draw the player of the opposite screen as well.
+         * E.g: The player is on the top left corner of the screen.
+         *      now 3 additional players have to be drawn: bottom, right, bottom right
+        **/
+
+        ArrayList<Vector2> screens = overlapsWhichScreens();
+
+        if(!screens.contains(new Vector2(0,0))) {
+            // teleport because mainship is not on main screen
+            setPosition(getX() - screens.get(0).x * DIM.WORLD_WIDTH, getY() - screens.get(0).y * DIM.WORLD_HEIGHT);
+        }
+
+        //TODO: Screen wrapping collisions and PlayerTail
     }
 
     private void checkCollisions(float delta) {
         checkCollisionWithParticle(app.gameScreen.worldStage.getParticle());
         checkCollisionWithTail();
-        checkCollisionWithBorder();
+        if(worldStage.isBorderDeadly()) {
+            checkCollisionWithBorder();
+        }
     }
 
     private void checkCollisionWithParticle(Particle particle) {
@@ -82,6 +108,30 @@ public class Player extends Actor {
             // TODO: Either die or come out of the other side of the screen
             app.gameScreen.gameOver();
         }
+    }
+
+    /**
+     * Determines which of the 9 Screens the player is seen on. For Screen Wrapping
+     * @return List of those Screens, indicated by two integers between -1 and 1 where 0/0 is the screen in the middle.
+     */
+    private ArrayList<Vector2> overlapsWhichScreens() {
+        Rectangle screenHitbox = new Rectangle(0,0, DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT);
+        Circle playerHitbox = getHitbox();
+
+        ArrayList<Vector2> screens = new ArrayList<Vector2>();
+
+        for(int x = -1; x<=1; x++) {
+            for(int y = -1; y<=1; y++) {
+                Rectangle tempHitbox = new Rectangle(screenHitbox);
+                tempHitbox.x += x * tempHitbox.width;
+                tempHitbox.y += y * tempHitbox.height;
+                if(Intersector.overlaps(playerHitbox, tempHitbox)) {
+                    screens.add(new Vector2(x,y));
+                }
+            }
+        }
+
+        return screens;
     }
 
     private void handleContainerHit(ParticleContainer container) {
@@ -122,8 +172,15 @@ public class Player extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(headTextureRegion,getX()-getOriginX(),getY()-getOriginY(),getOriginX(),getOriginY(),getWidth(),getHeight(),getScaleX(),getScaleY(),getRotation());
-
+        float x = getX()-getOriginX();
+        float y = getY()-getOriginY();
+        ArrayList<Vector2> screens = this.overlapsWhichScreens();
+        for (Vector2 screen: screens) {
+            batch.draw(headTextureRegion,
+                    x - screen.x * DIM.WORLD_WIDTH,
+                    y - screen.y * DIM.WORLD_HEIGHT,
+                    getOriginX(),getOriginY(),getWidth(),getHeight(),getScaleX(),getScaleY(),getRotation());
+        }
     }
 
     @Override

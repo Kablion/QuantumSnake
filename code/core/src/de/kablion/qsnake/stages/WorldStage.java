@@ -1,8 +1,12 @@
 package de.kablion.qsnake.stages;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import de.kablion.qsnake.Application;
 import de.kablion.qsnake.entities.Particle;
 import de.kablion.qsnake.entities.Player;
@@ -16,7 +20,8 @@ public class WorldStage extends Stage {
 
     private final Application app;
 
-    private Rectangle cameraBorder = new Rectangle();
+    private boolean borderDeadly = false;
+    private Rectangle worldBorder = new Rectangle();
 
     private Player player;
 
@@ -27,17 +32,27 @@ public class WorldStage extends Stage {
     private boolean paused;
 
     public WorldStage(Application app) {
-        super(new ExtendViewport(DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT), app.batch);
+        super(new FitViewport(DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT), app.batch);
         this.app = app;
 
         this.setDebugAll(true);
 
-        initCamera();
+        //initCamera();
     }
 
     private void initCamera() {
         getCamera().position.set(DIM.WORLD_WIDTH / 2f, DIM.WORLD_HEIGHT / 2f, 0);
-        cameraBorder = new Rectangle(0,0, DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT);
+
+        worldBorder = new Rectangle(0,0, DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT);
+
+        if(isDebugAll()) {
+            //getViewport().setWorldSize(DIM.WORLD_WIDTH*3, DIM.WORLD_HEIGHT*3);
+            Actor borderActor = new Actor();
+            borderActor.setBounds(worldBorder.x, worldBorder.y, worldBorder.width, worldBorder.height);
+            borderActor.setDebug(true);
+            addActor(borderActor);
+        }
+
     }
 
     private void initPlayer() {
@@ -50,6 +65,7 @@ public class WorldStage extends Stage {
         clear();
         paused = false;
         secondsPlayed = 0;
+        initCamera();
         initPlayer();
         createParticle();
     }
@@ -86,7 +102,7 @@ public class WorldStage extends Stage {
     }
 
     public void resize(int width, int height) {
-        getViewport().update(width, height, true);
+        getViewport().update(width, height, false);
     }
 
     @Override
@@ -99,7 +115,7 @@ public class WorldStage extends Stage {
     }
 
     public Rectangle getBorder() {
-        return cameraBorder;
+        return worldBorder;
     }
 
     public Particle getParticle() {
@@ -108,5 +124,9 @@ public class WorldStage extends Stage {
 
     public float getSecondsPlayed() {
         return secondsPlayed;
+    }
+
+    public boolean isBorderDeadly() {
+        return borderDeadly;
     }
 }
