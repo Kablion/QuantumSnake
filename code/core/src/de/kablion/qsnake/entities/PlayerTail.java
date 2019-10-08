@@ -60,7 +60,20 @@ public class PlayerTail extends Group {
             sinceLastRecord += delta;
         }
 
+        handleScreenWrapping();
+
         moveParticleContainers(delta);
+    }
+
+    private void handleScreenWrapping() {
+        /*
+         * Screen Wrapping Concept:
+         * change recordPlayerPosition to calcPlayerPosition using the velocity because of player teleportation
+         * for drawing and collision detection check for each container on which screens he currently is and virtually change the position accordingly
+         * if the whole player tail is on one screen (maybe another condition) teleport it back to the (0,0) screen
+         * E.g. the tail could range over multiple screens (0,0),(0,1),(0,2) but for every container the visible part is correctly calculated
+         */
+        //TODO
     }
 
     private void moveParticleContainers(float delta) {

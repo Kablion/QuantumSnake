@@ -1,6 +1,5 @@
 package de.kablion.qsnake.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,7 +15,6 @@ import de.kablion.qsnake.constants.PATHS;
 import de.kablion.qsnake.stages.WorldStage;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Player extends Actor {
 
@@ -50,11 +48,11 @@ public class Player extends Actor {
         super.act(delta);
         tail.act(delta);
         move(delta);
-        handleScreenWarping();
+        handleScreenWrapping();
         checkCollisions(delta);
     }
 
-    private void handleScreenWarping() {
+    private void handleScreenWrapping() {
         /*
          * Screen Wrapping Concept:
          * Assume 9 playing screens side by side with the actual playing screens in the middle.
