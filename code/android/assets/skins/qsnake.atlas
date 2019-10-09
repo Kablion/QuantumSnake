@@ -126,3 +126,17 @@ window
   orig: 48, 116
   offset: 0, 0
   index: -1
+checkbox
+  rotate: false
+  xy: 335, 901
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+checkbox_marked
+  rotate: false
+  xy: 423, 940
+  size: 30, 33
+  orig: 30, 33
+  offset: 0, 0
+  index: -1

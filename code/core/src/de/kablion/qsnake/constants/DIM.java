@@ -59,7 +59,7 @@ public class DIM {
 
 
     // Main Menu
-    public static final float MAIN_MENU_TITLE_PAD_BOTTOM = 100;
+    public static final float MAIN_MENU_TITLE_PAD_BOTTOM = 75;
     public static final float MAIN_MENU_BUTTONS_WIDTH = 420;
     public static final float MAIN_MENU_BUTTONS_DISTANCE = 20;
 

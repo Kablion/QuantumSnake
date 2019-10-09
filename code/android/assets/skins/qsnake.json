@@ -119,6 +119,13 @@ ButtonStyle: {
 		down: resume_button_down_alpha
 	}
 }
+CheckBoxStyle: {
+	default: {
+		checkboxOn: checkbox_marked
+		checkboxOff: checkbox
+		font: default
+	}
+}
 LabelStyle: {
 	default: {
 		font: default

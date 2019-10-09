@@ -2,6 +2,7 @@ package de.kablion.qsnake.screens;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import de.kablion.qsnake.Application;
 import de.kablion.qsnake.constants.DIM;
+import de.kablion.qsnake.constants.PREFERENCES;
 import de.kablion.qsnake.constants.STRINGS;
 
 
@@ -34,7 +36,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 public class MenuScreen implements Screen {
 
     private enum MenuPage {
-        MAIN,STATISTICS
+        MAIN,STATISTICS,SETTINGS
     }
 
     /**
@@ -50,12 +52,12 @@ public class MenuScreen implements Screen {
     private MenuPage currentPage;
 
     TextButton tempButton;
+    CheckBox tempCheckBox;
 
     public MenuScreen(final Application app) {
         this.app = app;
         this.stage = new Stage(new ExtendViewport(DIM.SCREEN_WIDTH, DIM.SCREEN_HEIGHT), app.batch);
 
-        stage.setDebugAll(true);
     }
 
     @Override
@@ -104,73 +106,196 @@ public class MenuScreen implements Screen {
         currentPage = menuPage;
 
         menuTable.clear();
-        Table buttonsTable = new Table();
+
+        if(app.settings.getBoolean(PREFERENCES.SETTINGS_DEBUG_MENU)) {
+            stage.setDebugAll(true);
+        } else {
+            stage.setDebugAll(false);
+        }
+
         switch (menuPage) {
 
             case MAIN :
-                titleLabel.setText(STRINGS.MAIN_MENU_TITLE);
-
-                // Game Mode Slider
-
-                menuTable.add(buttonsTable);
-                menuTable.row();
-
-                // Play Button
-                tempButton = new TextButton(STRINGS.MAIN_MENU_PLAY, app.skins.qsnake);
-                tempButton.addListener(new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        app.setScreen(app.gameScreen);
-                    }
-                });
-                buttonsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
-                buttonsTable.row();
-
-                // Statistics Button
-                tempButton = new TextButton(STRINGS.MAIN_MENU_STATS, app.skins.qsnake);
-                tempButton.addListener(new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        setPage(MenuPage.STATISTICS);
-                    }
-                });
-                buttonsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
-                buttonsTable.row();
-
-                // Exit Button
-                tempButton = new TextButton(STRINGS.MAIN_MENU_EXIT, app.skins.qsnake);
-                tempButton.addListener(new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        Timer.schedule(new Timer.Task() {
-                            @Override
-                            public void run() {
-                                Gdx.app.exit();
-                            }
-                        },0.5f);
-                    }
-                });
-                buttonsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+                showMainMenu();
                 break;
             case STATISTICS:
-                titleLabel.setText(STRINGS.STATS_MENU_TITLE);
-
-                buttonsTable = new Table();
-                menuTable.add(buttonsTable);
-                menuTable.row();
-
-                // Back Button
-                tempButton = new TextButton(STRINGS.STATS_MENU_BACK, app.skins.qsnake);
-                tempButton.addListener(new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        setPage(MenuPage.MAIN);
-                    }
-                });
-                buttonsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
-                buttonsTable.row();
+                showStatsMenu();
+                break;
+            case SETTINGS:
+                showSettingsMenu();
                 break;
         }
+    }
+
+    private void showMainMenu() {
+        Table buttonsTable = new Table();
+        titleLabel.setText(STRINGS.MAIN_MENU_TITLE);
+
+        // Game Mode Slider
+        //TODO
+
+        menuTable.add(buttonsTable);
+        menuTable.row();
+
+        // Play Button
+        tempButton = new TextButton(STRINGS.MAIN_MENU_PLAY, app.skins.qsnake);
+        tempButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                app.setScreen(app.gameScreen);
+            }
+        });
+        buttonsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        buttonsTable.row();
+
+        // Statistics Button
+        tempButton = new TextButton(STRINGS.MAIN_MENU_STATS, app.skins.qsnake);
+        tempButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                setPage(MenuPage.STATISTICS);
+            }
+        });
+        buttonsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        buttonsTable.row();
+
+        // Settings Button
+        tempButton = new TextButton(STRINGS.MAIN_MENU_SETTINGS, app.skins.qsnake);
+        tempButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                setPage(MenuPage.SETTINGS);
+            }
+        });
+        buttonsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        buttonsTable.row();
+
+        // Exit Button
+        tempButton = new TextButton(STRINGS.MAIN_MENU_EXIT, app.skins.qsnake);
+        tempButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Timer.schedule(new Timer.Task() {
+                    @Override
+                    public void run() {
+                        Gdx.app.exit();
+                    }
+                },0.5f);
+            }
+        });
+        buttonsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+    }
+
+    private void showStatsMenu() {
+        titleLabel.setText(STRINGS.STATS_MENU_TITLE);
+
+        Table buttonsTable = new Table();
+        menuTable.add(buttonsTable);
+        menuTable.row();
+
+        // Back Button
+        tempButton = new TextButton(STRINGS.STATS_MENU_BACK, app.skins.qsnake);
+        tempButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                setPage(MenuPage.MAIN);
+            }
+        });
+        buttonsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        buttonsTable.row();
+    }
+
+    private void showSettingsMenu() {
+        titleLabel.setText(STRINGS.SETTINGS_MENU_TITLE);
+
+        Table settingsTable = new Table();
+        menuTable.add(settingsTable);
+        menuTable.row();
+
+        //Debug Screen Wrapping
+        tempCheckBox = new CheckBox(STRINGS.SETTINGS_MENU_DEBUG_SCREEN_WRAPPING, app.skins.qsnake);
+        tempCheckBox.setChecked(app.settings.getBoolean(PREFERENCES.SETTINGS_DEBUG_SCREEN_WRAPPING));
+        tempCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                app.settings.putBoolean(PREFERENCES.SETTINGS_DEBUG_SCREEN_WRAPPING,((CheckBox)actor).isChecked());
+            }
+        });
+        //TODO Proper Design
+        settingsTable.add(tempCheckBox).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        settingsTable.row();
+
+        //Debug Menu
+        tempCheckBox = new CheckBox(STRINGS.SETTINGS_MENU_DEBUG_MENU, app.skins.qsnake);
+        tempCheckBox.setChecked(app.settings.getBoolean(PREFERENCES.SETTINGS_DEBUG_MENU));
+        tempCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                app.settings.putBoolean(PREFERENCES.SETTINGS_DEBUG_MENU,((CheckBox)actor).isChecked());
+            }
+        });
+        //TODO Proper Design
+        settingsTable.add(tempCheckBox).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        settingsTable.row();
+
+        //Debug HUD
+        tempCheckBox = new CheckBox(STRINGS.SETTINGS_MENU_DEBUG_HUD, app.skins.qsnake);
+        tempCheckBox.setChecked(app.settings.getBoolean(PREFERENCES.SETTINGS_DEBUG_HUD));
+        tempCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                app.settings.putBoolean(PREFERENCES.SETTINGS_DEBUG_HUD,((CheckBox)actor).isChecked());
+            }
+        });
+        //TODO Proper Design
+        settingsTable.add(tempCheckBox).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        settingsTable.row();
+
+        //Debug Entities
+        tempCheckBox = new CheckBox(STRINGS.SETTINGS_MENU_DEBUG_ENTITIES, app.skins.qsnake);
+        tempCheckBox.setChecked(app.settings.getBoolean(PREFERENCES.SETTINGS_DEBUG_ENTITIES));
+        tempCheckBox.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                app.settings.putBoolean(PREFERENCES.SETTINGS_DEBUG_ENTITIES,((CheckBox)actor).isChecked());
+            }
+        });
+        //TODO Proper Design
+        settingsTable.add(tempCheckBox).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        settingsTable.row();
+
+        // Reset Button
+        tempButton = new TextButton(STRINGS.SETTINGS_MENU_RESET, app.skins.qsnake);
+        tempButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                resetPreferences();
+                setPage(MenuPage.SETTINGS);
+            }
+        });
+        settingsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        settingsTable.row();
+
+        // Back Button
+        tempButton = new TextButton(STRINGS.SETTINGS_MENU_BACK, app.skins.qsnake);
+        tempButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                app.settings.flush();
+                setPage(MenuPage.MAIN);
+            }
+        });
+        settingsTable.add(tempButton).expandX().fill().padBottom(DIM.MAIN_MENU_BUTTONS_DISTANCE);
+        settingsTable.row();
+
+    }
+
+    private void resetPreferences() {
+        app.settings.clear();
+        app.settings.putBoolean(PREFERENCES.SETTINGS_DEBUG_SCREEN_WRAPPING, PREFERENCES.DEFAULT_SETTINGS_DEBUG_SCREEN_WRAPPING);
+        app.settings.putBoolean(PREFERENCES.SETTINGS_DEBUG_MENU, PREFERENCES.DEFAULT_SETTINGS_DEBUG_MENU);
+        app.settings.putBoolean(PREFERENCES.SETTINGS_DEBUG_HUD, PREFERENCES.DEFAULT_SETTINGS_DEBUG_HUD);
+        app.settings.putBoolean(PREFERENCES.SETTINGS_DEBUG_ENTITIES, PREFERENCES.DEFAULT_SETTINGS_DEBUG_ENTITIES);
     }
 
     @Override

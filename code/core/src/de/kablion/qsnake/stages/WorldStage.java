@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import de.kablion.qsnake.Application;
+import de.kablion.qsnake.constants.PREFERENCES;
 import de.kablion.qsnake.entities.Particle;
 import de.kablion.qsnake.entities.Player;
 import de.kablion.qsnake.constants.DIM;
@@ -34,19 +35,16 @@ public class WorldStage extends Stage {
     public WorldStage(Application app) {
         super(new FitViewport(DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT), app.batch);
         this.app = app;
-
-        this.setDebugAll(true);
-
-        //initCamera();
     }
 
     private void initCamera() {
         getCamera().position.set(DIM.WORLD_WIDTH / 2f, DIM.WORLD_HEIGHT / 2f, 0);
+        getViewport().setWorldSize(DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT);
 
         worldBorder = new Rectangle(0,0, DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT);
 
-        if(isDebugAll()) {
-            //getViewport().setWorldSize(DIM.WORLD_WIDTH*3, DIM.WORLD_HEIGHT*3);
+        if(app.settings.getBoolean(PREFERENCES.SETTINGS_DEBUG_SCREEN_WRAPPING)) {
+            getViewport().setWorldSize(DIM.WORLD_WIDTH*3, DIM.WORLD_HEIGHT*3);
             Actor borderActor = new Actor();
             borderActor.setBounds(worldBorder.x, worldBorder.y, worldBorder.width, worldBorder.height);
             borderActor.setDebug(true);
@@ -63,6 +61,13 @@ public class WorldStage extends Stage {
 
     public void reset() {
         clear();
+
+        if(app.settings.getBoolean(PREFERENCES.SETTINGS_DEBUG_ENTITIES)) {
+            this.setDebugAll(true);
+        } else {
+            this.setDebugAll(false);
+        }
+
         paused = false;
         secondsPlayed = 0;
         initCamera();

@@ -478,6 +478,40 @@ atlasData: {
 			minHeight: 0
 			customized: false
 		}
+		{
+			file: D:/Programmieren/QuantumSnake/design/skins/qsnake/drawables/checkbox.png
+			bgColor: {
+				r: 0
+				g: 0
+				b: 0
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: checkbox
+			tiled: false
+			minWidth: 0
+			minHeight: 0
+			customized: false
+		}
+		{
+			file: D:/Programmieren/QuantumSnake/design/skins/qsnake/drawables/checkbox_marked.png
+			bgColor: {
+				r: 0
+				g: 0
+				b: 0
+				a: 1
+			}
+			visible: true
+			tint: null
+			tintName: null
+			name: checkbox_marked
+			tiled: false
+			minWidth: 0
+			minHeight: 0
+			customized: false
+		}
 	]
 }
 jsonData: {
@@ -1648,14 +1682,14 @@ jsonData: {
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: checkboxOn
 						optional: false
-						value: null
+						value: checkbox_marked
 					}
 					checkboxOff: {
 						class: com.ray3k.skincomposer.data.StyleProperty
 						type: com.badlogic.gdx.scenes.scene2d.utils.Drawable
 						name: checkboxOff
 						optional: false
-						value: null
+						value: checkbox
 					}
 					checkboxOnOver: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -1690,7 +1724,7 @@ jsonData: {
 						type: com.badlogic.gdx.graphics.g2d.BitmapFont
 						name: font
 						optional: false
-						value: null
+						value: default
 					}
 					fontColor: {
 						class: com.ray3k.skincomposer.data.StyleProperty
@@ -3142,5 +3176,5 @@ preferences: {
 		value: false
 	}
 }
-saveFile: D:/Programmieren/QuantumSnake/Design/skins/qsnake/qsnake.scmp
+saveFile: D:/Programmieren/QuantumSnake/design/skins/qsnake/qsnake.scmp
 }

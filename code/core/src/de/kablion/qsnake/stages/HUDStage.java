@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import de.kablion.qsnake.Application;
 import de.kablion.qsnake.constants.DIM;
+import de.kablion.qsnake.constants.PREFERENCES;
 import de.kablion.qsnake.constants.STRINGS;
 import de.kablion.qsnake.constants.Skins;
 import de.kablion.qsnake.utils.UtilCalc;
@@ -59,12 +60,17 @@ public class HUDStage extends Stage {
         super(new ExtendViewport(DIM.SCREEN_WIDTH,DIM.SCREEN_HEIGHT), app.batch);
         this.app = app;
         this.worldStage = worldStage;
-
-        setDebugAll(false);
     }
 
     public void reset() {
         clear();
+
+        if(app.settings.getBoolean(PREFERENCES.SETTINGS_DEBUG_HUD)) {
+            setDebugAll(true);
+        } else {
+            this.setDebugAll(false);
+        }
+
         initialize();
     }
 

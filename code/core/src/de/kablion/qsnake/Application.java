@@ -1,10 +1,13 @@
 package de.kablion.qsnake;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import de.kablion.qsnake.constants.PREFERENCES;
 import de.kablion.qsnake.constants.Skins;
 import de.kablion.qsnake.screens.GameScreen;
 import de.kablion.qsnake.screens.LoadingScreen;
@@ -17,6 +20,7 @@ public class Application extends Game {
 	public ShapeRenderer shapeRenderer;
 	public AssetManager assets;
     public Skins skins;
+    public Preferences settings;
 
 	//Screens
 	public LoadingScreen loadingScreen;
@@ -29,6 +33,7 @@ public class Application extends Game {
 		shapeRenderer = new ShapeRenderer();
 		assets = new AssetManager();
 		skins = new Skins();
+		settings = Gdx.app.getPreferences(PREFERENCES.SETTINGS);
 
 		loadingScreen = new LoadingScreen(this);
 		menuScreen = new MenuScreen(this);
