@@ -5,6 +5,7 @@
 -particle pickup animation
 -screenborder animation/sprite
 -pretty effects
+-screen wrapping
 
 -quantum
 
