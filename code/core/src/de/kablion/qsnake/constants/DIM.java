@@ -10,6 +10,8 @@ public class DIM {
     public static final int WORLD_WIDTH = 750;
     public static final int WORLD_HEIGHT = (int)(WORLD_WIDTH * aspectRatio);
 
+    public static final float COORDINATE_LINE_LENGTH = 50;
+
     // Player
     public static final float PLAYER_SPEED = 100; // Units per second
     public static final float PLAYER_ROTATION_SPEED = 120; // Degrees per second

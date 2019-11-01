@@ -1,5 +1,7 @@
 package de.kablion.qsnake.stages;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -59,6 +61,22 @@ public class WorldStage extends Stage {
         addActor(player.getTail());
     }
 
+    private void initCoordinateIndicator() {
+        addActor(new Actor(){
+            @Override
+            public void drawDebug(ShapeRenderer shapes) {
+                //Draw Coordinate Indicator
+                //x Axis in Red
+                shapes.setColor(Color.RED);
+                shapes.line(0,0,DIM.COORDINATE_LINE_LENGTH,0);
+
+                //y Axis in Green
+                shapes.setColor(Color.FOREST);
+                shapes.line(0,0,0,DIM.COORDINATE_LINE_LENGTH);
+            }
+        });
+    }
+
     public void reset() {
         clear();
 
@@ -72,6 +90,7 @@ public class WorldStage extends Stage {
         secondsPlayed = 0;
         initCamera();
         initPlayer();
+        initCoordinateIndicator();
         createParticle();
     }
 
