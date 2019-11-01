@@ -1,11 +1,9 @@
--screen teleport
+-particle pickup animation (also to fix the bug picking up particles to fast after another)
 -stats menu
 -pause, resume the app
 -alpha buttons prettier
--particle pickup animation
 -screenborder animation/sprite
 -pretty effects
--screen wrapping
 
 -quantum
 
