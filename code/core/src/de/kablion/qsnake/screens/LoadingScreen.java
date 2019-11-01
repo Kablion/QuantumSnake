@@ -51,7 +51,7 @@ public class LoadingScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.app.log("Screen:","LOADING");
+        Gdx.app.log("Screen","LOADING");
 
         initLoadingSkin();
         initStage();

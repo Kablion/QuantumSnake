@@ -62,7 +62,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.app.log("Screen:","MAIN_MENU");
+        Gdx.app.log("Screen","MAIN_MENU");
 
         stage.clear();
         rootTable.clear();

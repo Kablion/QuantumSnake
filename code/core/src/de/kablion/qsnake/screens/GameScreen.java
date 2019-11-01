@@ -35,7 +35,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.app.log("Screen:","GAME");
+        Gdx.app.log("Screen","GAME");
         reset();
 
         InputMultiplexer multiplexer = new InputMultiplexer();
