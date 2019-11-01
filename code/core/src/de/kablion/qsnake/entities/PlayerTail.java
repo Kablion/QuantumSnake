@@ -4,9 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.CatmullRomSpline;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 import de.kablion.qsnake.Application;
 import de.kablion.qsnake.constants.DIM;
 
@@ -81,7 +89,51 @@ public class PlayerTail extends Group {
          * if the whole player tail is on one screen (maybe another condition) teleport it back to the (0,0) screen
          * E.g. the tail could range over multiple screens (0,0),(0,1),(0,2) but for every container the visible part is correctly calculated
          */
-        //TODO Backteleport and collision handling
+        //TODO collision handling
+        ArrayList<Vector2> screens = this.overlapsWhichScreens();
+
+        if(!screens.contains(new Vector2(0,0))) {
+            // teleport because tail is not on main screen
+            for (Vector2 point:pathPoints) {
+                point.add(-screens.get(0).x * DIM.WORLD_WIDTH, -screens.get(0).y * DIM.WORLD_HEIGHT);
+            }
+        }
+    }
+
+    /**
+     * Determines which Screen the Container is seen on. For Screen Wrapping
+     * @return List of those Screens, indicated by two integers
+     * where 0/0 is the screen in the middle and -1/-1 is the screen above and left
+     * search all 8 screens around the screen on which it's position is on
+     */
+    private ArrayList<Vector2> overlapsWhichScreens() {
+
+        Rectangle screenHitbox = new Rectangle(0,0, DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT);
+
+        Rectangle tailHitbox = getHitbox();
+
+        ArrayList<Vector2> screens = new ArrayList<Vector2>();
+
+        //Find main screen (center of the Tail)
+        int mainScreenX = (int)(tailHitbox.getCenter(new Vector2()).x/screenHitbox.width);
+        int mainScreenY = (int)(tailHitbox.getCenter(new Vector2()).y/screenHitbox.height);
+
+        //How many +- screens to search
+        int offsetXOfScreens = (int)(tailHitbox.width/screenHitbox.width) + 1;
+        int offsetYOfScreens = (int)(tailHitbox.height/screenHitbox.height) + 1;
+
+        for(int x = mainScreenX-offsetXOfScreens; x<=mainScreenX+offsetXOfScreens; x++) {
+            for(int y = mainScreenY-offsetYOfScreens; y<=mainScreenY+offsetYOfScreens; y++) {
+                Rectangle tempHitbox = new Rectangle(screenHitbox);
+                tempHitbox.x += x * tempHitbox.width;
+                tempHitbox.y += y * tempHitbox.height;
+                if(Intersector.overlaps(tempHitbox, tailHitbox)) {
+                    screens.add(new Vector2(x,y));
+                }
+            }
+        }
+
+        return screens;
     }
 
     private void moveParticleContainers(float delta) {
@@ -133,5 +185,21 @@ public class PlayerTail extends Group {
 
     public Array<ParticleContainer> getParticleContainers() {
         return particleContainers;
+    }
+
+    private Rectangle getHitbox() {
+        ArrayList<Float> pathPointsX = new ArrayList<Float>();
+        ArrayList<Float> pathPointsY = new ArrayList<Float>();
+        for (Vector2 point: pathPoints) {
+            pathPointsX.add(point.x);
+            pathPointsY.add(point.y);
+        }
+
+        float minX = Collections.min(pathPointsX);
+        float maxX = Collections.max(pathPointsX);
+        float minY = Collections.min(pathPointsY);
+        float maxY = Collections.max(pathPointsY);
+
+        return new Rectangle(minX,minY,maxX-minX,maxY-minY);
     }
 }

@@ -45,7 +45,6 @@ public class ParticleContainer extends Actor {
      * search all 8 screens around the screen on which it's position is on
      */
     private ArrayList<Vector2> overlapsWhichScreens() {
-        //TODO
         Rectangle screenHitbox = new Rectangle(0,0, DIM.WORLD_WIDTH, DIM.WORLD_HEIGHT);
 
         Polygon containerHitbox = getHitbox();
@@ -53,10 +52,12 @@ public class ParticleContainer extends Actor {
         ArrayList<Vector2> screens = new ArrayList<Vector2>();
 
         //Find main screen
-        Vector2 mainScreen = new Vector2((int)(getX()/screenHitbox.width),(int)(getY()/screenHitbox.height));
+        float DmainScreenX = (getX()/screenHitbox.width);
+        int mainScreenX = (int)(getX()/screenHitbox.width);
+        int mainScreenY = (int)(getY()/screenHitbox.height);
 
-        for(int x = (int)mainScreen.x-1; x<=(int)mainScreen.x+1; x++) {
-            for(int y = (int)mainScreen.y-1; y<=(int)mainScreen.y+1; y++) {
+        for(int x = mainScreenX-1; x<=mainScreenX+1; x++) {
+            for(int y = mainScreenY-1; y<=mainScreenY+1; y++) {
                 Rectangle tempHitbox = new Rectangle(screenHitbox);
                 tempHitbox.x += x * tempHitbox.width;
                 tempHitbox.y += y * tempHitbox.height;
@@ -76,6 +77,7 @@ public class ParticleContainer extends Actor {
         float x = getX()-getOriginX();
         float y = getY()-getOriginY();
         ArrayList<Vector2> screens = this.overlapsWhichScreens();
+
         for (Vector2 screen: screens) {
             batch.draw(chargeTextureRegion,
                     x - screen.x * DIM.WORLD_WIDTH,
