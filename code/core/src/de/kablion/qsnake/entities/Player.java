@@ -1,5 +1,6 @@
 package de.kablion.qsnake.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -46,7 +47,6 @@ public class Player extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        tail.act(delta);
         move(delta);
         handleScreenWrapping();
         checkCollisions(delta);
@@ -214,5 +214,9 @@ public class Player extends Actor {
         return new Circle(getX() + hitbox_offset.x,
                 getY() + hitbox_offset.y,
                 DIM.PLAYER_HEAD_HITBOX_RADIUS);
+    }
+
+    public Vector2 getVelocity() {
+        return new Vector2(velocity);
     }
 }

@@ -1,5 +1,6 @@
 package de.kablion.qsnake.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.CatmullRomSpline;
@@ -16,12 +17,12 @@ public class PlayerTail extends Group {
     private final Application app;
     private final Player player;
 
-    private static final float RECORDS_PER_SECOND = 30;
+    private static final float RECORDS_PER_SECOND = 60;
     private static final int SPLINE_SAMPLES = 100;
 
     private Array<Vector2> pathPoints = new Array<Vector2>();
     private CatmullRomSpline<Vector2> spline = new CatmullRomSpline<Vector2>();
-    private float sinceLastRecord = 1/RECORDS_PER_SECOND+1;
+    private float sinceLastRecord = 0;
 
     private Array<ParticleContainer> particleContainers = new Array<ParticleContainer>();
 
@@ -33,31 +34,38 @@ public class PlayerTail extends Group {
     }
 
     private void initPathPoints() {
-        // Make an initial Path behind the player for quickly collected particles
+        // Make an initial Path behind the player for quickly collected particles (kinda a hack)
         for(int i = 3; i>=0; i--) {
-            recordPlayerPosition(player.getX(), player.getY() - i * (DIM.PARTICLE_CONTAINER_LENGTH + DIM.PARTICLE_CONTAINER_DISTANCE));
+            addToPathPoints(player.getX(), player.getY() - i * (DIM.PARTICLE_CONTAINER_LENGTH + DIM.PARTICLE_CONTAINER_DISTANCE));
         }
     }
 
-    public void recordPlayerPosition(float x, float y) {
+    public void addToPathPoints(float x, float y) {
         pathPoints.add(new Vector2(x,y));
         Vector2[] dataSet = pathPoints.toArray(Vector2.class);
         spline.set(dataSet, false);
+    }
+
+    private void recordPlayerPosition() {
+        Vector2 lastPosition = pathPoints.peek();
+        Vector2 velocity = player.getVelocity();
+        addToPathPoints(lastPosition.x + velocity.x * sinceLastRecord,
+                lastPosition.y + velocity.y * sinceLastRecord);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
 
+        sinceLastRecord += delta;
+
         if(sinceLastRecord >= 1/RECORDS_PER_SECOND) {
             if(pathPoints.size>2 && spline.approxLength(SPLINE_SAMPLES)>=(particleContainers.size+2)*(DIM.PARTICLE_CONTAINER_LENGTH+ DIM.PARTICLE_CONTAINER_DISTANCE)) {
                 // reduce lenght of tail
                 pathPoints.removeIndex(0);
             }
-            recordPlayerPosition(player.getX(), player.getY());
+            recordPlayerPosition();
             sinceLastRecord = 0;
-        } else {
-            sinceLastRecord += delta;
         }
 
         handleScreenWrapping();
@@ -73,7 +81,7 @@ public class PlayerTail extends Group {
          * if the whole player tail is on one screen (maybe another condition) teleport it back to the (0,0) screen
          * E.g. the tail could range over multiple screens (0,0),(0,1),(0,2) but for every container the visible part is correctly calculated
          */
-        //TODO
+        //TODO Backteleport and collision handling
     }
 
     private void moveParticleContainers(float delta) {
@@ -117,6 +125,7 @@ public class PlayerTail extends Group {
     }
 
     public void addParticleContainer() {
+        //TODO Make more gradually (not just appearing instantly)
         ParticleContainer particleContainer = new ParticleContainer(app);
         particleContainers.add(particleContainer);
         addActor(particleContainer);
