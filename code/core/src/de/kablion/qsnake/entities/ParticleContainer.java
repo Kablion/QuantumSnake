@@ -121,4 +121,19 @@ public class ParticleContainer extends Actor {
         return containerHitbox;
     }
 
+    public ArrayList<Polygon> getAllVisibleHitboxes() {
+        ArrayList<Polygon> hitboxes = new ArrayList<Polygon>();
+
+        ArrayList<Vector2> screens = this.overlapsWhichScreens();
+        float actualX = getX();
+        float actualY = getY();
+        for(Vector2 screen:screens) {
+            setX(actualX - screen.x*DIM.WORLD_WIDTH);
+            setY(actualY - screen.y*DIM.WORLD_HEIGHT);
+            hitboxes.add(getHitbox());
+        }
+        setPosition(actualX, actualY);
+        return hitboxes;
+    }
+
 }

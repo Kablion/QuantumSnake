@@ -69,15 +69,25 @@ public class Player extends Actor {
             setPosition(getX() - screens.get(0).x * DIM.WORLD_WIDTH, getY() - screens.get(0).y * DIM.WORLD_HEIGHT);
         }
 
-        //TODO: Screen wrapping collisions and PlayerTail
+        //TODO: Screen wrapping collisions
     }
 
     private void checkCollisions(float delta) {
-        checkCollisionWithParticle(app.gameScreen.worldStage.getParticle());
-        checkCollisionWithTail();
-        if(worldStage.isBorderDeadly()) {
+        if (worldStage.isBorderDeadly()) {
             checkCollisionWithBorder();
         }
+
+        //check all other collisions with each player instance due to screen wrapping by temporarily changing the position
+        ArrayList<Vector2> screens = this.overlapsWhichScreens();
+        float actualX = getX();
+        float actualY = getY();
+        for(Vector2 screen:screens) {
+            setX(actualX - screen.x*DIM.WORLD_WIDTH);
+            setY(actualY - screen.y*DIM.WORLD_HEIGHT);
+            checkCollisionWithParticle(app.gameScreen.worldStage.getParticle());
+            checkCollisionWithTail();
+        }
+        setPosition(actualX, actualY);
     }
 
     private void checkCollisionWithParticle(Particle particle) {
@@ -94,16 +104,17 @@ public class Player extends Actor {
         Array<ParticleContainer> particleContainers = tail.getParticleContainers();
         for(int i = 0; i<particleContainers.size; i++) {
             ParticleContainer container = particleContainers.get(i);
-            Polygon containerHitbox = container.getHitbox();
-            if(IntersectorExtension.overlaps(headHitbox,containerHitbox)) {
-                handleContainerHit(container);
+            ArrayList<Polygon> containerHitboxes = container.getAllVisibleHitboxes();
+            for(Polygon containerHitbox:containerHitboxes) {
+                if (IntersectorExtension.overlaps(headHitbox, containerHitbox)) {
+                    handleContainerHit(container);
+                }
             }
         }
     }
 
     private void checkCollisionWithBorder() {
         if(Intersector.overlaps(this.getHitbox(), worldStage.getBorder()) && !worldStage.getBorder().contains(this.getHitbox())) {
-            // TODO: Either die or come out of the other side of the screen
             app.gameScreen.gameOver();
         }
     }
