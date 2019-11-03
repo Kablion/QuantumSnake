@@ -86,7 +86,7 @@ public class Player extends Actor {
             setX(actualX - screen.x*DIM.WORLD_WIDTH);
             setY(actualY - screen.y*DIM.WORLD_HEIGHT);
             checkCollisionWithParticle(app.gameScreen.worldStage.getParticle());
-            //checkCollisionWithTail();
+            checkCollisionWithTail();
         }
         setPosition(actualX, actualY);
     }

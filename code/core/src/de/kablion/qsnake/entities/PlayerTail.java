@@ -16,14 +16,11 @@ import java.util.Collections;
 import de.kablion.qsnake.Application;
 import de.kablion.qsnake.constants.DIM;
 
-
-//TODO When Particle is collected while pathPoints are not enough the game crashs
-
 public class PlayerTail extends Group {
     private final Application app;
     private final Player player;
 
-    private static final float RECORDS_PER_SECOND = 60;
+    private static final float RECORDS_PER_SECOND = 100000;
     private static final int SPLINE_SAMPLES = 100;
 
     private Array<Vector2> pathPoints = new Array<Vector2>();
@@ -40,23 +37,33 @@ public class PlayerTail extends Group {
     }
 
     private void initPathPoints() {
-        // Make an initial Path behind the player for quickly collected particles (kinda a hack)
-        for(int i = 3; i>=0; i--) {
-            addToPathPoints(player.getX(), player.getY() - i * (DIM.PARTICLE_CONTAINER_LENGTH + DIM.PARTICLE_CONTAINER_DISTANCE));
+        //there have to be at least 4 pathPoints
+        for(int i=0;i<4;i++) {
+            pathPoints.add(new Vector2(player.getX(),player.getY()));
         }
+        updateSpline();
     }
 
-    public void addToPathPoints(float x, float y) {
-        pathPoints.add(new Vector2(x,y));
+    public void updateSpline() {
         Vector2[] dataSet = pathPoints.toArray(Vector2.class);
+        for(int i = 0; i<dataSet.length; i++) {
+            dataSet[i] = new Vector2(dataSet[i]);
+        }
         spline.set(dataSet, false);
     }
 
     private void recordPlayerPosition() {
-        Vector2 lastPosition = pathPoints.peek();
+        Vector2 lastPosition = new Vector2(pathPoints.peek());
         Vector2 velocity = player.getVelocity();
-        addToPathPoints(lastPosition.x + velocity.x * sinceLastRecord,
-                lastPosition.y + velocity.y * sinceLastRecord);
+        lastPosition.add(velocity.scl(sinceLastRecord));
+        pathPoints.add(lastPosition);
+        updateSpline();
+    }
+
+    private boolean isSplineLongEnough() {
+        float splineLength = spline.approxLength(SPLINE_SAMPLES);
+        float minLength = (particleContainers.size+1)*(DIM.PARTICLE_CONTAINER_LENGTH+ DIM.PARTICLE_CONTAINER_DISTANCE);
+        return splineLength >= minLength;
     }
 
     @Override
@@ -66,7 +73,7 @@ public class PlayerTail extends Group {
         sinceLastRecord += delta;
 
         if(sinceLastRecord >= 1/RECORDS_PER_SECOND) {
-            if(pathPoints.size>2 && spline.approxLength(SPLINE_SAMPLES)>=(particleContainers.size+2)*(DIM.PARTICLE_CONTAINER_LENGTH+ DIM.PARTICLE_CONTAINER_DISTANCE)) {
+            if(isSplineLongEnough()) {
                 // reduce lenght of tail
                 pathPoints.removeIndex(0);
             }
@@ -167,7 +174,7 @@ public class PlayerTail extends Group {
     }
 
     private void moveParticleContainers(float delta) {
-        // TODO make smoother
+        // TODO make smoother/ better performance
         if(particleContainers.size>0) {
             Vector2 out = new Vector2();
             float splineLength = spline.approxLength(SPLINE_SAMPLES);
@@ -194,14 +201,30 @@ public class PlayerTail extends Group {
     public void drawDebug(ShapeRenderer shapes) {
         super.drawDebug(shapes);
 
+        //draw the path points
+        shapes.set(ShapeRenderer.ShapeType.Filled);
+        shapes.setColor(Color.RED);
+        for (Vector2 pathPoint:pathPoints) {
+            shapes.circle(pathPoint.x,pathPoint.y,2);
+        }
+
         // Draw the Path
         if(pathPoints.size > 2) {
-            int k = pathPoints.size * 2; //double the precision as the recorded Points
+            int k = pathPoints.size;
             Vector2[] dataSet = pathPoints.toArray(Vector2.class);
             shapes.set(ShapeRenderer.ShapeType.Line);
-            shapes.setColor(1, 1, 1, 1);
+            shapes.setColor(Color.WHITE);
+            Vector2 a = new Vector2();
+            Vector2 b = new Vector2();
             for (int i = 0; i < k - 1; ++i) {
-                shapes.line(spline.valueAt(new Vector2(), ((float) i) / ((float) k - 1)), spline.valueAt(new Vector2(), ((float) (i + 1)) / ((float) k - 1)));
+                spline.valueAt(a, ((float) i) / ((float) k - 1));
+                spline.valueAt(b, ((float) (i + 1)) / ((float) k - 1));
+                shapes.setColor(Color.WHITE);
+                //Line
+                shapes.line(a,b);
+                //Line Vertices
+                shapes.setColor(Color.RED);
+                //shapes.circle(a.x,a.y,1);
             }
         }
     }
