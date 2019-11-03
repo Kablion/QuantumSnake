@@ -1,6 +1,7 @@
 package de.kablion.qsnake.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -85,7 +86,7 @@ public class Player extends Actor {
             setX(actualX - screen.x*DIM.WORLD_WIDTH);
             setY(actualY - screen.y*DIM.WORLD_HEIGHT);
             checkCollisionWithParticle(app.gameScreen.worldStage.getParticle());
-            checkCollisionWithTail();
+            //checkCollisionWithTail();
         }
         setPosition(actualX, actualY);
     }
@@ -102,12 +103,13 @@ public class Player extends Actor {
     private void checkCollisionWithTail() {
         Circle headHitbox = getHitbox();
         Array<ParticleContainer> particleContainers = tail.getParticleContainers();
-        for(int i = 0; i<particleContainers.size; i++) {
-            ParticleContainer container = particleContainers.get(i);
-            ArrayList<Polygon> containerHitboxes = container.getAllVisibleHitboxes();
-            for(Polygon containerHitbox:containerHitboxes) {
-                if (IntersectorExtension.overlaps(headHitbox, containerHitbox)) {
-                    handleContainerHit(container);
+        for(ParticleContainer container : particleContainers) {
+            if(container.isCreated()) {
+                ArrayList<Polygon> containerHitboxes = container.getAllVisibleHitboxes();
+                for (Polygon containerHitbox : containerHitboxes) {
+                    if (IntersectorExtension.overlaps(headHitbox, containerHitbox)) {
+                        handleContainerHit(container);
+                    }
                 }
             }
         }
@@ -201,8 +203,8 @@ public class Player extends Actor {
         shapes.rect(getX()-getOriginX(), getY()-getOriginY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
         // draw position
         shapes.set(ShapeRenderer.ShapeType.Filled);
-        shapes.setColor(getStage().getDebugColor());
-        shapes.circle(getX(),getY(),5);
+        shapes.setColor(Color.RED);
+        shapes.circle(getX(),getY(),2);
         // draw hitbox
         shapes.set(ShapeRenderer.ShapeType.Line);
         shapes.setColor(getStage().getDebugColor());

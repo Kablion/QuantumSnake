@@ -24,6 +24,10 @@ public class ParticleContainer extends Actor {
 
     private final Application app;
 
+    public enum CreationStatus {WAITING,CREATING,CREATED}
+
+    private CreationStatus creationStatus = CreationStatus.WAITING;
+
     private float probability = 0;
 
     private TextureRegion containerTextureRegion;
@@ -36,6 +40,16 @@ public class ParticleContainer extends Actor {
         setOrigin(Align.center);
         this.containerTextureRegion = app.assets.get(PATHS.ENTITY_SPRITES, TextureAtlas.class).findRegion("particle_container");
         this.chargeTextureRegion = app.assets.get(PATHS.ENTITY_SPRITES, TextureAtlas.class).findRegion("particle_container_charge");
+    }
+
+    public void startCreation() {
+        creationStatus = CreationStatus.CREATING;
+        //TODO: Creation (Container Position has to be acurately where it would be according to the spline)
+        //TODO: Not just appear. animate
+    }
+
+    public void finishCreation() {
+        creationStatus = CreationStatus.CREATED;
     }
 
     /**
@@ -103,7 +117,7 @@ public class ParticleContainer extends Actor {
         shapes.polygon(getHitbox().getTransformedVertices());
         // draw position
         shapes.set(ShapeRenderer.ShapeType.Filled);
-        shapes.setColor(getStage().getDebugColor());
+        shapes.setColor(Color.RED);
         shapes.circle(getX(),getY(),1);
 
     }
@@ -134,6 +148,14 @@ public class ParticleContainer extends Actor {
         }
         setPosition(actualX, actualY);
         return hitboxes;
+    }
+
+    public CreationStatus getCreationStatus() {
+        return creationStatus;
+    }
+
+    public boolean isCreated() {
+        return this.creationStatus == CreationStatus.CREATED;
     }
 
 }

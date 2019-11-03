@@ -1,18 +1,16 @@
 package de.kablion.qsnake.entities;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.CatmullRomSpline;
 import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 import de.kablion.qsnake.Application;
@@ -78,7 +76,13 @@ public class PlayerTail extends Group {
 
         handleScreenWrapping();
 
-        moveParticleContainers(delta);
+        if(!particleContainers.isEmpty()) {
+            //while container creation the other containers don't move
+            if (!particleContainers.peek().isCreated())
+                handleContainerCreation();
+            else
+                moveParticleContainers(delta);
+        }
     }
 
     private void handleScreenWrapping() {
@@ -89,7 +93,6 @@ public class PlayerTail extends Group {
          * if the whole player tail is on one screen (maybe another condition) teleport it back to the (0,0) screen
          * E.g. the tail could range over multiple screens (0,0),(0,1),(0,2) but for every container the visible part is correctly calculated
          */
-        //TODO collision handling
         ArrayList<Vector2> screens = this.overlapsWhichScreens();
 
         if(!screens.contains(new Vector2(0,0))) {
@@ -136,6 +139,33 @@ public class PlayerTail extends Group {
         return screens;
     }
 
+    private void handleContainerCreation() {
+        // checks whether a particle container has just finished being created and starts the creation for the next one.
+        ParticleContainer firstWaitingContainer = null;
+        for(int i = particleContainers.size-1; i >= 0; i--) {
+            if(particleContainers.get(i).getCreationStatus() == ParticleContainer.CreationStatus.WAITING) {
+                firstWaitingContainer = particleContainers.get(i);
+            } else if (particleContainers.get(i).getCreationStatus() == ParticleContainer.CreationStatus.CREATING) {
+                float splineLength = spline.approxLength(SPLINE_SAMPLES);
+                Vector2 containerPosition = new Vector2(particleContainers.get(i).getX(),particleContainers.get(i).getY());
+                float relativeContainerPosition = spline.approximate(containerPosition);
+                float relativeContainerDistance = (DIM.PARTICLE_CONTAINER_LENGTH+DIM.PARTICLE_CONTAINER_DISTANCE) / splineLength;
+                if(relativeContainerPosition <= 1 - relativeContainerDistance) {
+                    particleContainers.get(i).finishCreation();
+                }
+                return;
+            } else {
+                break;
+            }
+        }
+        if (firstWaitingContainer != null) {
+            firstWaitingContainer.startCreation();
+            firstWaitingContainer.setPosition(player.getX(),player.getY());
+            firstWaitingContainer.setRotation(player.getRotation());
+            addActor(firstWaitingContainer);
+        }
+    }
+
     private void moveParticleContainers(float delta) {
         // TODO make smoother
         if(particleContainers.size>0) {
@@ -180,7 +210,7 @@ public class PlayerTail extends Group {
         //TODO Make more gradually (not just appearing instantly)
         ParticleContainer particleContainer = new ParticleContainer(app);
         particleContainers.add(particleContainer);
-        addActor(particleContainer);
+        //addActor(particleContainer);
     }
 
     public Array<ParticleContainer> getParticleContainers() {
