@@ -31,34 +31,34 @@ public class UtilCalc {
 
         milliseconds = (int)(timeInSeconds*1000);
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < format.length(); i++){
             char interval = format.charAt(i);
             switch (interval) {
                 case 'd':
                     if(days > 0 || forceShow) {
-                        result += days + " Days ";
+                        result.append(days).append(" Days ");
                     }
                     break;
                 case 'h':
                     if(hours > 0 || forceShow) {
-                        result += hours + " Hours ";
+                        result.append(hours).append(" Hours ");
                     }
                     break;
                 case 'M':
                     if(minutes > 0 || forceShow) {
-                        result += minutes + " Minutes ";
+                        result.append(minutes).append(" Minutes ");
                     }
                     break;
                 case 's':
                     if(seconds > 0 || forceShow) {
-                        result += seconds + " Seconds ";
+                        result.append(seconds).append(" Seconds ");
                     }
                     break;
                 case 'm': {
                     if(milliseconds > 0 || forceShow) {
-                        result += milliseconds + "Milliseconds ";
+                        result.append(milliseconds).append(" Milliseconds ");
                     }
                     break;
                 }
@@ -66,7 +66,7 @@ public class UtilCalc {
             }
         }
 
-        return result;
+        return result.toString();
     }
 
 }
